@@ -63,14 +63,14 @@ let wagesEarnedOnDate = function(employee, day){
     return parseFloat(wage.toString())
 }
 
-let allWagesFor = function(employee){
-    let eligibleDates = employee.timeInEvents.map((d)=>{
-        return d.date
+const allWagesFor = function () {
+    const eligibleDates = this.timeInEvents.map(function (e) {
+        return e.date
     })
 
-    let payable = eligibleDates.reduce(function(memo, d){
-        return memo + wagesEarnedOnDate(employee, d)
-    }, 0)
+    const payable = eligibleDates.reduce(function (memo, d) {
+        return memo + wagesEarnedOnDate.call(this, d)
+    }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
 
     return payable
 }
